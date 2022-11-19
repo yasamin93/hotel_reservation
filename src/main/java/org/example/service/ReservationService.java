@@ -15,8 +15,23 @@ public class ReservationService {
         rooms.put(room.getRoomNumber(), room);
     }
 
+    public List<IRoom> addRooms(List<IRoom> listRooms){
+        for (IRoom room: listRooms) {
+            rooms.put(room.getRoomNumber(), room);
+            System.out.println(room.toString() + " added.");
+        }
+        return rooms.values().stream().toList();
+    }
+
     public IRoom getARoom(String roomNumber) {
         return rooms.get(roomNumber);
+    }
+
+    public Collection<IRoom> getAllRooms() {
+        for(IRoom room: rooms.values()) {
+            System.out.println(room.toString());
+        }
+        return rooms.values();
     }
 
     public Reservation reserveARoom(Customer customer, IRoom room, Date checkInDate, Date checkOutDate) {
