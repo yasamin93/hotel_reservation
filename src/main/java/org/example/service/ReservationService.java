@@ -56,7 +56,12 @@ public class ReservationService {
     }
 
     public Collection<Reservation> getCustomerReservation(Customer customer) {
-        return reservations.get(customer);
+        System.out.println("Here is your reservation:");
+        Collection<Reservation> customerReservations = reservations.get(customer);
+        for (Reservation reservation: customerReservations) {
+            System.out.println(reservation);
+        }
+        return customerReservations;
     }
 
     public void printAllReservation() {

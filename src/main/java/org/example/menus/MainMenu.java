@@ -97,7 +97,10 @@ public class MainMenu {
                         break;
                     }
                 } else if (selection == 2) {
-                    keepRunning = false;
+                    Scanner accountScanner = new Scanner(System.in);
+                    System.out.println("Enter your email please:");
+                    String email = accountScanner.nextLine();
+                    hotelResource.getCustomersReservations(email);
                 } else if (selection == 3) {
                     List<String> inputCustomer = getInputCustomer();
                     hotelResource.createACustomer(
