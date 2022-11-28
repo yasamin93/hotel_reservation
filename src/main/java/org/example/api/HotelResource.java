@@ -10,8 +10,8 @@ import java.util.Collection;
 import java.util.Date;
 
 public class HotelResource {
-    private static CustomerService customerService;
-    private static ReservationService reservationService;
+    private static final CustomerService customerService = new CustomerService();
+    private static final ReservationService reservationService = new ReservationService();
 
     public Customer getCustomer(String email) {
         return customerService.getCustomer(email);

@@ -2,8 +2,10 @@ package org.example.model;
 
 public class FreeRoom extends Room {
 
-    public FreeRoom() {
+    public FreeRoom(String roomNumber, Double price, RoomType enumeration) {
+        super(roomNumber, price, enumeration);
         this.setPrice(0.0);
+        System.out.println("Free room initialized with 0 price.");
     }
 
     @Override

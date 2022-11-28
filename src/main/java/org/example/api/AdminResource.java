@@ -10,13 +10,16 @@ import java.util.Collection;
 import java.util.List;
 
 public class AdminResource {
-    private static CustomerService customerService;
-    private static ReservationService reservationService;
+    private static final CustomerService customerService = new CustomerService();
+    private static final ReservationService reservationService = new ReservationService();
 
     public Customer getCustomer(String email) {
         return customerService.getCustomer(email);
     }
 
+    public void addRoom(IRoom room) {
+        reservationService.addRoom(room);
+    }
     public void addRooms(List<IRoom> rooms) {
         reservationService.addRooms(rooms);
     }

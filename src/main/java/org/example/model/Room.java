@@ -5,9 +5,14 @@ public class Room implements IRoom {
     private Double price;
     private RoomType enumeration;
 
+    public Room(String roomNumber, Double price, RoomType enumeration) {
+        this.roomNumber = roomNumber;
+        this.price = price;
+        this.enumeration = enumeration;
+    }
     @Override
     public String toString(){
-        return this.enumeration + "room \n room number: " + this.roomNumber + " \n room price: " + this.price;
+        return "Room type " + this.enumeration + "\n room number: " + this.roomNumber + " \n room price: " + this.price;
     }
 
     public String getRoomNumber() {
