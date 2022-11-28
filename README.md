@@ -1,2 +1,2 @@
 # hotel_reservation
-Java reservation system.
+Vanilla Java reservation system.
