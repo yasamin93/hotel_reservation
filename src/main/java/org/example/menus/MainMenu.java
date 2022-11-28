@@ -1,5 +1,6 @@
 package org.example.menus;
 
+import org.example.api.AdminResource;
 import org.example.api.HotelResource;
 import org.example.model.Customer;
 import org.example.model.IRoom;
@@ -16,23 +17,26 @@ import static org.example.menus.AdminMenu.adminMenu;
 
 public class MainMenu {
     public static final HotelResource hotelResource = new HotelResource();
+    public static final AdminResource adminResource = new AdminResource();
 
     public static List<Date> getReservationDates() throws ParseException {
         Scanner objScanner = new Scanner(System.in);
         System.out.println("Enter CheckIn date mm/dd/yyyy example 02/01/2022");
-        SimpleDateFormat format = new SimpleDateFormat("mm-dd-yyyy");
-        Date checkInDate = format.parse("01-01-2000");
-        Date checkOutDate = format.parse("01-01-2000");
+        SimpleDateFormat format = new SimpleDateFormat("mm/dd/yyyy");
+        Date checkInDate = format.parse("01/01/2000");
+        Date checkOutDate = format.parse("01/01/2000");
         try {
             checkInDate = format.parse(objScanner.nextLine());
         } catch (Exception ex) {
             System.out.println("\n Error - Please give a correct date.");
+            System.out.println("error: " + ex.getLocalizedMessage());
         }
         System.out.println("Enter CheckOut date mm/dd/yyyy example 02/01/2022");
         try {
             checkOutDate = format.parse(objScanner.nextLine());
         } catch (Exception ex) {
             System.out.println("\n Error - Please give a correct date.");
+            System.out.println("error: " + ex.getLocalizedMessage());
         }
         return Arrays.asList(checkInDate, checkOutDate);
     }
@@ -65,15 +69,33 @@ public class MainMenu {
                 if (selection == 1) {
                     List<Date> reservationDates = getReservationDates();
                     Collection<IRoom> rooms = hotelResource.findARoom(reservationDates.get(0), reservationDates.get(1));
-                    Scanner objScanner = new Scanner(System.in);
-                    System.out.println("Would you like to book a room? y/n");
-                    boolean isBook = objScanner.nextBoolean();
-                    if (isBook) {
-//                        I was here!
+                    if (rooms.size() > 0) {
+                        Scanner objScanner = new Scanner(System.in);
+                        System.out.println("Would you like to book a room? y/n");
+                        String isBook = objScanner.nextLine();
+                        if (isBook.equals("y")) {
+                            Scanner accountScanner = new Scanner(System.in);
+                            System.out.println("Do you have an account with us? y/n");
+                            String hasAccount = accountScanner.nextLine();
+                            if (hasAccount.equals("y") ) {
+                                Scanner emailScanner = new Scanner(System.in);
+                                System.out.println("Insert the email:");
+                                String email = emailScanner.nextLine();
+                                Scanner roomScanner = new Scanner(System.in);
+                                System.out.println("Which room would you like to reserve?");
+                                String roomNumber = roomScanner.nextLine();
+                                IRoom room = adminResource.getRoom(roomNumber);
+                                hotelResource.bookARoom(email, room, reservationDates.get(0), reservationDates.get(1));
+                            } else{
+                                System.out.println("Please go to the main menu and create an account.");
+                            }
+                        } else {
+                                System.out.println("Thanks for your visit to our system!");
+                        }
+                    } else {
+                        System.out.println("We have no room available at the moment.");
+                        break;
                     }
-
-
-                    keepRunning = false;
                 } else if (selection == 2) {
                     keepRunning = false;
                 } else if (selection == 3) {

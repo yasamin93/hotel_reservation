@@ -24,6 +24,9 @@ public class AdminResource {
         reservationService.addRooms(rooms);
     }
 
+    public IRoom getRoom(String roomNumber) {
+        return reservationService.getARoom(roomNumber);
+    }
     public Collection<IRoom> getAllRooms() {
         return reservationService.getAllRooms();
     }
